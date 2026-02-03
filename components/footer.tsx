@@ -15,6 +15,7 @@ import {
   Send,
   Clock,
 } from "lucide-react";
+import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
 const footerLinks = {
   services: [
@@ -84,13 +85,22 @@ export function Footer() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation();
+  const { ref: contactRef, isVisible: contactVisible } = useScrollAnimation();
+  const { ref: formRef, isVisible: formVisible } = useScrollAnimation();
+
   return (
     <footer id="contact" className="relative">
       {/* Contact Section */}
       <section className="py-20 px-6 bg-secondary">
         <div className="container mx-auto">
           {/* Section Header */}
-          <div className="text-center mb-12">
+          <div
+            ref={headerRef}
+            className={`text-center mb-12 animate-fade-up ${
+              headerVisible ? "visible" : ""
+            }`}
+          >
             <p className="text-accent font-medium mb-2">Get In Touch</p>
             <h2 className="font-serif text-4xl md:text-5xl text-primary mb-4">
               Let&apos;s discuss your project
@@ -103,8 +113,13 @@ export function Footer() {
 
           <div className="grid md:grid-cols-12 gap-12">
             {/* Contact Information */}
-            <div className="md:col-span-5">
-              <div className="bg-primary rounded-3xl p-8 md:p-10 text-white h-full">
+            <div
+              ref={contactRef}
+              className={`md:col-span-5 animate-fade-left ${
+                contactVisible ? "visible" : ""
+              }`}
+            >
+              <div className="bg-primary rounded-3xl p-8 md:p-10 text-white h-full hover-lift">
                 <h3 className="text-2xl font-semibold mb-6">
                   Contact Information
                 </h3>
@@ -198,8 +213,13 @@ export function Footer() {
             </div>
 
             {/* Contact Form */}
-            <div className="md:col-span-7">
-              <div className="bg-white rounded-3xl p-8 md:p-10 shadow-sm">
+            <div
+              ref={formRef}
+              className={`md:col-span-7 animate-fade-right ${
+                formVisible ? "visible" : ""
+              }`}
+            >
+              <div className="bg-white rounded-3xl p-8 md:p-10 shadow-sm hover-glow">
                 <h3 className="text-2xl font-semibold text-primary mb-6">
                   Send us a message
                 </h3>
@@ -456,6 +476,7 @@ export function Footer() {
                 </li>
                 <li className="flex items-center gap-3">
                   <Globe className="w-5 h-5 text-accent shrink-0" />
+
                   <a
                     href="https://www.bahlahlisolutions.co.za"
                     target="_blank"

@@ -1,6 +1,13 @@
-"use client"
+"use client";
 
-import { CheckCircle, Shield, Zap, Sun, Monitor, Accessibility } from "lucide-react"
+import {
+  CheckCircle,
+  Shield,
+  Zap,
+  Sun,
+  Monitor,
+  Accessibility,
+} from "lucide-react";
 
 const features = [
   { icon: CheckCircle, text: "Integrity & Transparency" },
@@ -9,7 +16,7 @@ const features = [
   { icon: Monitor, text: "IT Infrastructure Experts" },
   { icon: Sun, text: "Sustainable Energy Solutions" },
   { icon: Accessibility, text: "Inclusive Technology" },
-]
+];
 
 export function FeatureMarquee() {
   return (
@@ -17,9 +24,14 @@ export function FeatureMarquee() {
       <div className="relative flex">
         <div className="animate-marquee flex gap-12 whitespace-nowrap">
           {[...features, ...features].map((feature, index) => (
-            <div key={index} className="flex items-center gap-2 text-white">
-              <feature.icon className="w-5 h-5 text-accent" />
-              <span className="text-sm font-medium">{feature.text}</span>
+            <div
+              key={index}
+              className="flex items-center gap-2 text-white group cursor-default"
+            >
+              <feature.icon className="w-5 h-5 text-accent group-hover:scale-110 transition-transform" />
+              <span className="text-sm font-medium group-hover:text-accent transition-colors">
+                {feature.text}
+              </span>
             </div>
           ))}
         </div>
@@ -37,7 +49,10 @@ export function FeatureMarquee() {
         .animate-marquee {
           animation: marquee 30s linear infinite;
         }
+        .animate-marquee:hover {
+          animation-play-state: paused;
+        }
       `}</style>
     </section>
-  )
+  );
 }

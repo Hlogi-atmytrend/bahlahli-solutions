@@ -1,19 +1,64 @@
-import { Shield, Lightbulb, Award, CheckCircle, TrendingUp } from "lucide-react"
+"use client";
+
+import {
+  Shield,
+  Lightbulb,
+  Award,
+  CheckCircle,
+  TrendingUp,
+} from "lucide-react";
+import {
+  useScrollAnimation,
+  useStaggeredAnimation,
+} from "@/hooks/use-scroll-animation";
 
 const coreValues = [
-  { title: "Integrity", description: "We act with transparency and accountability", icon: Shield },
-  { title: "Innovation", description: "We leverage technology to create future-ready solutions", icon: Lightbulb },
-  { title: "Excellence", description: "We consistently deliver high-quality results", icon: Award },
-  { title: "Reliability", description: "We ensure dependable solutions for mission-critical operations", icon: CheckCircle },
-  { title: "Impact", description: "We prioritize solutions that drive measurable value", icon: TrendingUp },
-]
+  {
+    title: "Integrity",
+    description: "We act with transparency and accountability",
+    icon: Shield,
+  },
+  {
+    title: "Innovation",
+    description: "We leverage technology to create future-ready solutions",
+    icon: Lightbulb,
+  },
+  {
+    title: "Excellence",
+    description: "We consistently deliver high-quality results",
+    icon: Award,
+  },
+  {
+    title: "Reliability",
+    description:
+      "We ensure dependable solutions for mission-critical operations",
+    icon: CheckCircle,
+  },
+  {
+    title: "Impact",
+    description: "We prioritize solutions that drive measurable value",
+    icon: TrendingUp,
+  },
+];
 
 export function ProcessSteps() {
+  const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation();
+  const {
+    ref: valuesRef,
+    isVisible: valuesVisible,
+    getStaggerDelay,
+  } = useStaggeredAnimation(coreValues.length);
+
   return (
     <section id="overview" className="py-20 px-6">
       <div className="container mx-auto">
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <div
+          ref={headerRef}
+          className={`text-center mb-16 animate-fade-up ${
+            headerVisible ? "visible" : ""
+          }`}
+        >
           <div className="w-12 h-1 bg-accent mx-auto mb-8" />
           <p className="text-accent font-medium mb-4">Company Overview</p>
           <h2 className="font-serif text-4xl md:text-5xl text-primary mb-6">
@@ -22,24 +67,47 @@ export function ProcessSteps() {
             on the right technology partner
           </h2>
           <p className="text-muted-foreground max-w-5xl mx-auto leading-relaxed">
-            Bahlahli Business Solutions is a professional IT and technology solutions provider founded in 2020 in Mokopane, Limpopo, South Africa. We specialize in delivering innovative, scalable, and reliable technology services to meet the evolving needs of corporate organizations and government institutions. <br /><br />Our expertise spans educational software, IT infrastructure, hardware supply, solar energy solutions, and assistive technology. By integrating advanced technology with sustainable practices, we help our clients improve efficiency, reduce costs, and drive long-term impact.
+            Bahlahli Business Solutions is a professional IT and technology
+            solutions provider founded in 2020 in Mokopane, Limpopo, South
+            Africa. We specialize in delivering innovative, scalable, and
+            reliable technology services to meet the evolving needs of corporate
+            organizations and government institutions. <br />
+            <br />
+            Our expertise spans educational software, IT infrastructure,
+            hardware supply, solar energy solutions, and assistive technology.
+            By integrating advanced technology with sustainable practices, we
+            help our clients improve efficiency, reduce costs, and drive
+            long-term impact.
           </p>
         </div>
 
         {/* Core Values */}
-        <div className="pt-12 border-t border-border">
-          <div className="flex items-center justify-center gap-2 mb-10">
-            
+        <div ref={valuesRef} className="pt-12 border-t border-border">
+          <div
+            className={`flex items-center justify-center gap-2 mb-10 animate-fade-up ${
+              valuesVisible ? "visible" : ""
+            }`}
+          >
             <p className="text-primary font-medium">Our Core Values</p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
             {coreValues.map((value, index) => (
-              <div key={index} className="text-center">
-                <div className="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div
+                key={index}
+                className={`text-center animate-fade-up group ${
+                  valuesVisible ? "visible" : ""
+                }`}
+                style={getStaggerDelay(index)}
+              >
+                <div className="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-accent/20 group-hover:scale-110 transition-all duration-300">
                   <value.icon className="w-7 h-7 text-accent" />
                 </div>
-                <h4 className="font-semibold text-primary mb-2">{value.title}</h4>
-                <p className="text-muted-foreground text-sm">{value.description}</p>
+                <h4 className="font-semibold text-primary mb-2">
+                  {value.title}
+                </h4>
+                <p className="text-muted-foreground text-sm">
+                  {value.description}
+                </p>
               </div>
             ))}
           </div>
@@ -72,5 +140,5 @@ export function ProcessSteps() {
         </div> */}
       </div>
     </section>
-  )
+  );
 }

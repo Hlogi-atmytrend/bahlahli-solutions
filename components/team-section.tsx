@@ -1,10 +1,22 @@
+"use client";
+
+import { useScrollAnimation } from "@/hooks/use-scroll-animation";
+
 export function TeamSection() {
+  const { ref: textRef, isVisible: textVisible } = useScrollAnimation();
+  const { ref: cardRef, isVisible: cardVisible } = useScrollAnimation();
+
   return (
     <section id="leadership" className="py-20 px-6">
       <div className="container mx-auto">
         <div className="grid md:grid-cols-12 gap-12 items-center">
           {/* Section Header */}
-          <div className="md:col-span-5">
+          <div
+            ref={textRef}
+            className={`md:col-span-5 animate-fade-left ${
+              textVisible ? "visible" : ""
+            }`}
+          >
             <div className="flex items-center gap-2 mb-4">
               <p className="font-medium text-accent">Our Leadership</p>
             </div>
@@ -27,11 +39,16 @@ export function TeamSection() {
           </div>
 
           {/* Founder Card */}
-          <div className="md:col-span-7">
-            <div className="relative">
-              <div className="bg-secondary rounded-3xl p-8 md:p-12">
+          <div
+            ref={cardRef}
+            className={`md:col-span-7 animate-fade-right ${
+              cardVisible ? "visible" : ""
+            }`}
+          >
+            <div className="relative group">
+              <div className="bg-secondary rounded-3xl p-8 md:p-12 hover-lift">
                 <div className="grid md:grid-cols-2 gap-8 items-center">
-                  <div className="aspect-square rounded-2xl overflow-hidden bg-primary/10">
+                  <div className="aspect-square rounded-2xl overflow-hidden bg-primary/10 img-zoom">
                     <img
                       src="images/founder.png"
                       alt="Jacob Tlhatlha - Founder"
@@ -46,10 +63,10 @@ export function TeamSection() {
                       Founder & CEO
                     </p>
                     <div className="flex flex-wrap gap-4">
-                      <div className="bg-white rounded-full px-4 py-2 text-sm text-primary">
+                      <div className="bg-white rounded-full px-4 py-2 text-sm text-primary hover:bg-primary hover:text-white transition-colors cursor-default">
                         Technology Leader
                       </div>
-                      <div className="bg-white rounded-full px-4 py-2 text-sm text-primary">
+                      <div className="bg-white rounded-full px-4 py-2 text-sm text-primary hover:bg-primary hover:text-white transition-colors cursor-default">
                         Innovation Driver
                       </div>
                     </div>
@@ -57,8 +74,18 @@ export function TeamSection() {
                 </div>
               </div>
               {/* Decorative element */}
-              <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-accent/20 rounded-full -z-10" />
-              <div className="absolute -top-4 -left-4 w-16 h-16 bg-primary/10 rounded-full -z-10" />
+              <div
+                className={`absolute -bottom-4 -right-4 w-24 h-24 bg-accent/20 rounded-full -z-10 transition-all duration-500 ${
+                  cardVisible ? "scale-100 opacity-100" : "scale-0 opacity-0"
+                }`}
+                style={{ transitionDelay: "200ms" }}
+              />
+              <div
+                className={`absolute -top-4 -left-4 w-16 h-16 bg-primary/10 rounded-full -z-10 transition-all duration-500 ${
+                  cardVisible ? "scale-100 opacity-100" : "scale-0 opacity-0"
+                }`}
+                style={{ transitionDelay: "300ms" }}
+              />
             </div>
           </div>
         </div>
