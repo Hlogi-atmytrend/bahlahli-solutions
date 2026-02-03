@@ -6,17 +6,23 @@ export function TeamSection() {
           {/* Section Header */}
           <div className="md:col-span-5">
             <div className="flex items-center gap-2 mb-4">
-              
               <p className="font-medium text-accent">Our Leadership</p>
             </div>
             <h2 className="font-serif text-4xl md:text-5xl text-primary mb-6 leading-tight">
               Driven by vision, powered by expertise
             </h2>
             <p className="text-muted-foreground mb-8">
-              Founded by Jacob Tlhatlha, a visionary entrepreneur with a passion for technology and sustainable solutions, Bahlahli Business Solutions is driven by a mission to empower businesses and communities through innovation.
+              Founded by Jacob Tlhatlha, a visionary entrepreneur with a passion
+              for technology and sustainable solutions, Bahlahli Business
+              Solutions is driven by a mission to empower businesses and
+              communities through innovation.
             </p>
             <p className="text-muted-foreground mb-8">
-              Our team of IT specialists, project managers, and consultants brings extensive experience in delivering high-impact technology projects for corporates and government institutions. Together, we foster a culture of innovation, reliability, and customer-focused service.
+              Our team of IT specialists, project managers, and consultants
+              brings extensive experience in delivering high-impact technology
+              projects for corporates and government institutions. Together, we
+              foster a culture of innovation, reliability, and customer-focused
+              service.
             </p>
           </div>
 
@@ -27,14 +33,18 @@ export function TeamSection() {
                 <div className="grid md:grid-cols-2 gap-8 items-center">
                   <div className="aspect-square rounded-2xl overflow-hidden bg-primary/10">
                     <img
-                      src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                      src="images/founder.png"
                       alt="Jacob Tlhatlha - Founder"
                       className="w-full h-full object-cover"
                     />
                   </div>
                   <div>
-                    <h3 className="text-2xl font-semibold text-primary mb-2">Jacob Tlhatlha</h3>
-                    <p className="text-accent font-medium mb-6">Founder & CEO</p>
+                    <h3 className="text-2xl font-semibold text-primary mb-2">
+                      Jacob Tlhatlha
+                    </h3>
+                    <p className="text-accent font-medium mb-6">
+                      Founder & CEO
+                    </p>
                     <div className="flex flex-wrap gap-4">
                       <div className="bg-white rounded-full px-4 py-2 text-sm text-primary">
                         Technology Leader
@@ -52,9 +62,7 @@ export function TeamSection() {
             </div>
           </div>
         </div>
-
-        
       </div>
     </section>
-  )
+  );
 }

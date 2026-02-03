@@ -1,7 +1,20 @@
-'use client';
+"use client";
 
-import Link from "next/link"
-import { Linkedin, Facebook, Twitter, ArrowUp, MapPin, Phone, Mail, Globe } from "lucide-react"
+import Link from "next/link";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import {
+  Linkedin,
+  Facebook,
+  Twitter,
+  ArrowUp,
+  MapPin,
+  Phone,
+  Mail,
+  Globe,
+  Send,
+  Clock,
+} from "lucide-react";
 
 const footerLinks = {
   services: [
@@ -13,29 +26,324 @@ const footerLinks = {
   ],
   company: [
     { label: "About Us", href: "#about" },
-    { label: "Our Team", href: "#team" },
-    { label: "Core Values", href: "#values" },
+    { label: "Our Team", href: "#leadership" },
+    { label: "Services", href: "#services" },
     { label: "Contact", href: "#contact" },
   ],
-}
+};
+
+const serviceOptions = [
+  "Educational Software Solutions",
+  "Hardware Supply",
+  "IT Infrastructure & Networking",
+  "Solar Energy Solutions",
+  "Assistive Technology",
+  "General Inquiry",
+];
 
 export function Footer() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    service: "",
+    message: "",
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<
+    "idle" | "success" | "error"
+  >("idle");
+
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    // Simulate form submission
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    // Here you would typically send the form data to your backend
+    console.log("Form submitted:", formData);
+
+    setIsSubmitting(false);
+    setSubmitStatus("success");
+    setFormData({ name: "", email: "", phone: "", service: "", message: "" });
+
+    // Reset status after 5 seconds
+    setTimeout(() => setSubmitStatus("idle"), 5000);
+  };
+
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" })
-  }
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   return (
     <footer id="contact" className="relative">
+      {/* Contact Section */}
+      <section className="py-20 px-6 bg-secondary">
+        <div className="container mx-auto">
+          {/* Section Header */}
+          <div className="text-center mb-12">
+            <p className="text-accent font-medium mb-2">Get In Touch</p>
+            <h2 className="font-serif text-4xl md:text-5xl text-primary mb-4">
+              Let&apos;s discuss your project
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Ready to transform your technology infrastructure? Contact us
+              today and let our team of experts help you achieve your goals.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-12 gap-12">
+            {/* Contact Information */}
+            <div className="md:col-span-5">
+              <div className="bg-primary rounded-3xl p-8 md:p-10 text-white h-full">
+                <h3 className="text-2xl font-semibold mb-6">
+                  Contact Information
+                </h3>
+                <p className="text-white/70 mb-8">
+                  Reach out to us through any of the following channels.
+                  We&apos;re here to help!
+                </p>
+
+                <ul className="space-y-6">
+                  <li className="flex items-start gap-4">
+                    <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center shrink-0">
+                      <MapPin className="w-5 h-5 text-accent" />
+                    </div>
+                    <div>
+                      <p className="font-medium mb-1">Our Offices</p>
+                      <p className="text-white/70 text-sm">
+                        2536 Protea Mews, Noordwyk, Midrand, Johannesburg
+                      </p>
+                      <p className="text-white/70 text-sm mt-1">
+                        358 Phomolong Street, Mosesetjane Zone 2, Mokopane,
+                        Limpopo
+                      </p>
+                    </div>
+                  </li>
+                  <li className="flex items-start gap-4">
+                    <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center shrink-0">
+                      <Phone className="w-5 h-5 text-accent" />
+                    </div>
+                    <div>
+                      <p className="font-medium mb-1">Phone</p>
+                      <p className="text-white/70 text-sm">+27 82 586 5672</p>
+                      <p className="text-white/70 text-sm">+27 83 983 7092</p>
+                    </div>
+                  </li>
+                  <li className="flex items-start gap-4">
+                    <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center shrink-0">
+                      <Mail className="w-5 h-5 text-accent" />
+                    </div>
+                    <div>
+                      <p className="font-medium mb-1">Email</p>
+                      <a
+                        href="mailto:jakes@bahlahlisolutions.co.za"
+                        className="text-white/70 hover:text-white text-sm transition-colors"
+                      >
+                        jakes@bahlahlisolutions.co.za
+                      </a>
+                    </div>
+                  </li>
+                  <li className="flex items-start gap-4">
+                    <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center shrink-0">
+                      <Clock className="w-5 h-5 text-accent" />
+                    </div>
+                    <div>
+                      <p className="font-medium mb-1">Business Hours</p>
+                      <p className="text-white/70 text-sm">
+                        Mon - Fri: 8:00 AM - 5:00 PM
+                      </p>
+                      <p className="text-white/70 text-sm">Sat - Sun: Closed</p>
+                    </div>
+                  </li>
+                </ul>
+
+                {/* Social Links */}
+                <div className="mt-10 pt-8 border-t border-white/20">
+                  <p className="font-medium mb-4">Follow Us</p>
+                  <div className="flex gap-3">
+                    <Link
+                      href="#"
+                      className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-accent transition-colors"
+                      aria-label="LinkedIn"
+                    >
+                      <Linkedin className="w-4 h-4" />
+                    </Link>
+                    <Link
+                      href="#"
+                      className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-accent transition-colors"
+                      aria-label="Facebook"
+                    >
+                      <Facebook className="w-4 h-4" />
+                    </Link>
+                    <Link
+                      href="#"
+                      className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-accent transition-colors"
+                      aria-label="Twitter"
+                    >
+                      <Twitter className="w-4 h-4" />
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Contact Form */}
+            <div className="md:col-span-7">
+              <div className="bg-white rounded-3xl p-8 md:p-10 shadow-sm">
+                <h3 className="text-2xl font-semibold text-primary mb-6">
+                  Send us a message
+                </h3>
+
+                {submitStatus === "success" && (
+                  <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-xl text-green-700">
+                    Thank you for your message! We&apos;ll get back to you
+                    shortly.
+                  </div>
+                )}
+
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div>
+                      <label
+                        htmlFor="name"
+                        className="block text-sm font-medium text-primary mb-2"
+                      >
+                        Full Name *
+                      </label>
+                      <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        required
+                        className="w-full px-4 py-3 rounded-xl border border-border bg-secondary/50 focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-colors"
+                        placeholder="John Doe"
+                      />
+                    </div>
+                    <div>
+                      <label
+                        htmlFor="email"
+                        className="block text-sm font-medium text-primary mb-2"
+                      >
+                        Email Address *
+                      </label>
+                      <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
+                        className="w-full px-4 py-3 rounded-xl border border-border bg-secondary/50 focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-colors"
+                        placeholder="john@example.com"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div>
+                      <label
+                        htmlFor="phone"
+                        className="block text-sm font-medium text-primary mb-2"
+                      >
+                        Phone Number
+                      </label>
+                      <input
+                        type="tel"
+                        id="phone"
+                        name="phone"
+                        value={formData.phone}
+                        onChange={handleChange}
+                        className="w-full px-4 py-3 rounded-xl border border-border bg-secondary/50 focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-colors"
+                        placeholder="+27 12 345 6789"
+                      />
+                    </div>
+                    <div>
+                      <label
+                        htmlFor="service"
+                        className="block text-sm font-medium text-primary mb-2"
+                      >
+                        Service Interest *
+                      </label>
+                      <select
+                        id="service"
+                        name="service"
+                        value={formData.service}
+                        onChange={handleChange}
+                        required
+                        className="w-full px-4 py-3 rounded-xl border border-border bg-secondary/50 focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-colors appearance-none cursor-pointer"
+                      >
+                        <option value="">Select a service</option>
+                        {serviceOptions.map((service, index) => (
+                          <option key={index} value={service}>
+                            {service}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label
+                      htmlFor="message"
+                      className="block text-sm font-medium text-primary mb-2"
+                    >
+                      Your Message *
+                    </label>
+                    <textarea
+                      id="message"
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
+                      required
+                      rows={5}
+                      className="w-full px-4 py-3 rounded-xl border border-border bg-secondary/50 focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-colors resize-none"
+                      placeholder="Tell us about your project or inquiry..."
+                    />
+                  </div>
+
+                  <Button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full md:w-auto bg-accent text-white hover:bg-accent/90 rounded-full px-8 py-6 text-base font-semibold disabled:opacity-70"
+                  >
+                    {isSubmitting ? (
+                      "Sending..."
+                    ) : (
+                      <>
+                        Send Message
+                        <Send className="w-4 h-4 ml-2" />
+                      </>
+                    )}
+                  </Button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Image Band */}
       <div className="grid md:grid-cols-2 h-64 md:h-80">
         <div className="relative overflow-hidden">
           <img
-            src="https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+            src="images/working-it-team.jpg"
             alt="Office meeting"
             className="w-full h-full object-cover"
           />
           {/* Curved edge */}
-          <div className="absolute top-0 right-0 w-16 h-full bg-background rounded-bl-[80px]" />
+          <div className="absolute top-0 right-0 w-16 h-full bg-secondary rounded-bl-[80px]" />
         </div>
         <div className="relative overflow-hidden">
           <img
@@ -44,7 +352,7 @@ export function Footer() {
             className="w-full h-full object-cover"
           />
           {/* Curved edge */}
-          <div className="absolute top-0 left-0 w-16 h-full bg-background rounded-br-[80px]" />
+          <div className="absolute top-0 left-0 w-16 h-full bg-secondary rounded-br-[80px]" />
         </div>
       </div>
 
@@ -55,20 +363,29 @@ export function Footer() {
             {/* Logo & Description */}
             <div className="md:col-span-4">
               <Link href="/" className="flex items-center gap-2 mb-6">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <rect x="2" y="2" width="9" height="9" rx="2" fill="#e86a33" />
-                  <rect x="13" y="2" width="9" height="9" rx="2" fill="#e86a33" opacity="0.7" />
-                  <rect x="2" y="13" width="9" height="9" rx="2" fill="#e86a33" opacity="0.7" />
-                  <rect x="13" y="13" width="9" height="9" rx="2" fill="#e86a33" />
-                </svg>
-                <span className="text-xl font-semibold">Bahlahli</span>
+                <img
+                  src="/images/bahlahli-logo.png"
+                  alt="Bahlahli Business Solutions"
+                  className="w-20 h-auto"
+                />
               </Link>
-              <div className="w-12 h-px bg-white/30 mb-6" />
+              <div className="w-full h-px bg-white/30 mb-6" />
               <p className="text-white/70 text-sm leading-relaxed mb-6">
-                Delivering innovative, scalable, and reliable technology services to meet the evolving needs of corporate organizations and government institutions across South Africa.
+                Delivering innovative, scalable, and reliable technology
+                services to meet the evolving needs of corporate organizations
+                and government institutions across South Africa.
               </p>
               <p className="text-white/50 text-sm">
-                © 2025 Bahlahli Business Solutions. All Rights Reserved.
+                © 2026 Bahlahli Business Solutions. All Rights Reserved. Powered
+                by{" "}
+                <a
+                  href="https://www.mytrend.co.za"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white/70 hover:text-white text-sm transition-colors"
+                >
+                  MyTrend Technologies
+                </a>
               </p>
             </div>
 
@@ -111,27 +428,40 @@ export function Footer() {
               <h3 className="font-semibold mb-6">Contact Us</h3>
               <ul className="space-y-4">
                 <li className="flex items-start gap-3">
-                  <MapPin className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
+                  <MapPin className="w-5 h-5 text-accent shrink-0 mt-0.5" />
                   <div className="text-white/70 text-sm">
-                    <p className="mb-1">2536 Protea Mews, Noordwyk, Midrand, Johannesburg</p>
-                    <p>358 Phomolong Street, Mosesetjane Zone 2, Mokopane, Limpopo, 0601</p>
+                    <p className="mb-1">
+                      2536 Protea Mews, Noordwyk, Midrand, Johannesburg
+                    </p>
+                    <p>
+                      358 Phomolong Street, Mosesetjane Zone 2, Mokopane,
+                      Limpopo, 0601
+                    </p>
                   </div>
                 </li>
                 <li className="flex items-center gap-3">
-                  <Phone className="w-5 h-5 text-accent flex-shrink-0" />
+                  <Phone className="w-5 h-5 text-accent shrink-0" />
                   <div className="text-white/70 text-sm">
                     <p>+27 82 586 5672 / +27 83 983 7092</p>
                   </div>
                 </li>
                 <li className="flex items-center gap-3">
-                  <Mail className="w-5 h-5 text-accent flex-shrink-0" />
-                  <a href="mailto:jakes@bahlahlisolutions.co.za" className="text-white/70 hover:text-white text-sm transition-colors">
+                  <Mail className="w-5 h-5 text-accent shrink-0" />
+                  <a
+                    href="mailto:jakes@bahlahlisolutions.co.za"
+                    className="text-white/70 hover:text-white text-sm transition-colors"
+                  >
                     jakes@bahlahlisolutions.co.za
                   </a>
                 </li>
                 <li className="flex items-center gap-3">
-                  <Globe className="w-5 h-5 text-accent flex-shrink-0" />
-                  <a href="https://www.bahlahlisolutions.co.za" target="_blank" rel="noopener noreferrer" className="text-white/70 hover:text-white text-sm transition-colors">
+                  <Globe className="w-5 h-5 text-accent shrink-0" />
+                  <a
+                    href="https://www.bahlahlisolutions.co.za"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-white/70 hover:text-white text-sm transition-colors"
+                  >
                     www.bahlahlisolutions.co.za
                   </a>
                 </li>
@@ -175,5 +505,5 @@ export function Footer() {
         <ArrowUp className="w-5 h-5" />
       </button>
     </footer>
-  )
+  );
 }
